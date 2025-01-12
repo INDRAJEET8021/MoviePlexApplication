@@ -114,10 +114,11 @@ export default function Navbar() {
 
         {/* Hamburger Menu for Mobile */}
         <Box sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center" }}>
-          {isLoggedIn && <Avatar sx={{ bgcolor: deepPurple[500], marginRight: 2 }} size="large" onClick={handleAvatarClick}>{username.slice(0, 2).toUpperCase()}</Avatar>}
+         
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleMenuClick}>
             <SegmentIcon fontSize="large" />
           </IconButton>
+          {isLoggedIn && <Avatar sx={{ bgcolor: deepPurple[500], marginRight: 2 }} size="large" onClick={handleAvatarClick}>{username.slice(0, 2).toUpperCase()}</Avatar>}
         </Box>
 
         {/* Hamburger Menu Items */}
