@@ -3,9 +3,13 @@ const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cors = require("cors"); // For handling CORS
+require('dotenv').config();  // Load environment variables
+const fs = require('fs');
+
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT
+
 
 app.use(express.json());
 app.use(cors());
@@ -18,12 +22,14 @@ const db = mysql.createConnection({
   // database: "movie", // The name of your database
 
   // Setup for cloud data base
-  host: "mysql-1b43b79e-indrajeetrai903-5218.c.aivencloud.com", // Your database host (usually localhost)
-  user: "avnadmin", // Your database username
-  password: "AVNS_dqHluSYHZh2ut5bIBwi", // Your database password
-  database: "defaultdb", // The name of your database
+  host: process.env.HOST,       // Use the database host from .env
+  user: 'avnadmin',             // Your database username
+  password: process.env.DB_PASSWORD, // Use the database password from .env
+  database: 'defaultdb',        // The name of your database
   port: 14234,
-  ssl_cert_path: "ca.pem"
+  ssl: {
+    ca: fs.readFileSync(process.env.ssl_cert_path)  // Assuming 'ssl_cert_path' points to the certificate file
+  }
 });
 
 
