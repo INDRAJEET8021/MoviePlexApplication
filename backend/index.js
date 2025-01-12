@@ -23,9 +23,9 @@ const db = mysql.createConnection({
 
   // Setup for cloud data base
   host: process.env.HOST,       // Use the database host from .env
-  user: 'avnadmin',             // Your database username
+  user: process.env.USER,             // Your database username
   password: process.env.DB_PASSWORD, // Use the database password from .env
-  database: 'defaultdb',        // The name of your database
+  database: process.env.DATABASE,        // The name of your database
   port: 14234,
   ssl: {
     ca: fs.readFileSync(process.env.ssl_cert_path)  // Assuming 'ssl_cert_path' points to the certificate file
