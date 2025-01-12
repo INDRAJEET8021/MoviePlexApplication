@@ -19,6 +19,7 @@ import {
 import {
   Star as StarIcon,
   Movie as MovieIcon,
+  Person as PersonIcon,
   Info as InfoIcon,
   Language as LanguageIcon,
   LocalAtm as LocalAtmIcon,
@@ -89,7 +90,7 @@ const MovieDetailPage = () => {
     if (isFavorite) {
       // Remove from favorites (API Call)
       axios
-        .post("http://localhost:5000/removeFavorite", { userId, movieId })
+        .post("https://movieplexapplication.onrender.com/removeFavorite", { userId, movieId })
         .then(() => {
           setIsFavorite(false);
         })
@@ -97,7 +98,7 @@ const MovieDetailPage = () => {
     } else {
       // Add to favorites (API Call)
       axios
-        .post("http://localhost:5000/addFavorite", { userId, movieId })
+        .post("https://movieplexapplication.onrender.com/addFavorite", { userId, movieId })
         .then(() => {
           setIsFavorite(true);
         })
