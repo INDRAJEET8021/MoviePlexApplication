@@ -1,75 +1,250 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# MoviePlexApplication
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MoviePlex is a **full-stack** application that allows users to search for movies, manage their favorites, and view detailed information about movies. Built with **React** for the frontend and **Node.js** for the backend, the application fetches movie data from the OMDB API.
 
-## Available Scripts
+### Features:
+- **Search for movies**: Find movies by title.
+- **View detailed movie information**: Including release date, cast, plot, runtime, rating, etc.
+- **Manage favorites**: Logged-in users can add or remove movies from their favorites list.
+- **Responsive design**: Works seamlessly across devices (desktop, tablet, mobile).
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Setup Instructions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Clone the repository
+To get started with the project, first clone the repository to your local machine:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git clone https://github.com/INDRAJEET8021/MoviePlexApplication.git
+```
 
-### `npm test`
+### 2. Install Dependencies
+The project consists of both frontend (React) and backend (Node.js). You need to install dependencies for both parts of the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+For the backend, navigate to the backend directory and run:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+cd backend
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Set up Environment Variables
+You will need to configure environment variables for both the frontend and backend.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Frontend (.env)
+Create a .env file in the frontend directory and add your OMDB API key:
 
-### `npm run eject`
+```
+REACT_APP_OMDB_API_KEY=your_omdb_api_key
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Backend (.env)
+Create a .env file in the backend directory and add your OMDB API key along with your database and JWT secrets:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+PORT=your_port
+HOST='host_name'
+DATABASE='your_database_name'
+USER='database_user'
+DB_PASSWORD='database_password'
+DB_PORT='database_port'
+ssc_cert_path='your_ssc_cert_path'  # cloud database
+JWT_SECRET='add_jwt_secret_key'
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Start the Project
+For the frontend, run the following command in the frontend directory:
+```
+npm run start
+```
+For the backend, run the following command in the backend 
+```
+dd backend
+npm run dev
+```
+## API Documentation
+### 1. OMDB API Integration
+The MoviePlex application integrates with the OMDB API to fetch detailed movie information like titles, ratings, release dates, cast, etc.
+```
+Base URL: https://www.omdbapi.com/
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 1.1.  GET Search for movies by title.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Endpoint**: `/`  
+**Method**: `GET`  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Query Parameters**:
+- `title1`: The title of the movie to search for.
+- `apikey`: Your OMDB API Key (required)
 
-### Code Splitting
+**Example Request**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```http
+GET /movies/search?title=Inception
 
-### Analyzing the Bundle Size
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 1.2  Get detailed information about a specific movie.
 
-### Making a Progressive Web App
+**Endpoint**: `/movies/:imdbID`  
+**Method**: `GET`  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Query Parameters**:
+- `i`: IMDB ID of the movie (required)
+- `apikey`: Your OMDB API Key (required)
 
-### Advanced Configuration
+Request:
+URL: /movies/:imdbID
+Method: GET
+Params:
+imdbID: The IMDb ID of the movie.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Example Request**:
 
-### Deployment
+```http
+GET https://www.omdbapi.com/?i=tt0133093&apikey=your_omdb_api_key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 2 User API Integration
 
-### `npm run build` fails to minify
+#### 2.1 Use Registeration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# MoviePlex
-This  is amazing fullstack project to search about movies
->>>>>>> e39b44a6b3cb4901dd76e4fd86cc7b9394be6259
+  **Endpoint**: `/register` 
+
+  **Method**: `post`  
+
+
+#### 2.2 Use Login
+
+  **Endpoint**: `/login` 
+
+  **Method**: `post`  
+
+
+
+#### 2.1 POST /favorites/add
+- `Add a movie to the user's favorites list.` 
+
+**Endpoint**:
+
+- `url`: /favorites/add
+- `Method`: POST
+- `Body (JSON)`:
+
+  - ` userId`: The ID of the user adding the movie to favorites.
+  - `movieId`: The IMDb ID of the movie.
+
+**Example**:
+
+  ```
+  {
+  "userId": "12345",
+  "movieId": "tt1375666"
+}
+```
+
+#### 2.2 POST /favorites/remove
+- `Remove a movie to the user's favorites list if already Added.` 
+
+**Endpoint**:
+
+- `url`: /favorites/remove
+- `Method`: POST
+- `Body (JSON)`:
+
+  - ` userId`: The ID of the user adding the movie to favorites.
+  - `movieId`: The IMDb ID of the movie.
+
+**Example**:
+
+```
+{
+  "userId": "12345",
+  "movieId": "tt1375666"
+}
+```
+
+#### 2.3  GET /favorites/get
+- `Remove a movie to the user's favorites list if already Added.`
+
+
+**Endpoint**:
+
+- `url`: /favorites/get
+- `Method`: GET
+
+
+
+## Deployment ##
+
+### Frontend: ###
+Frontend is Deployed on vercel.
+
+### Backend: ###
+Backend is Deployed on Render.
+### Cloud Database ###
+
+`-aiven.io` is used for clud database
+
+
+## List of Implemented Features ##
+
+### 1. Search for Movies ###
+
+Users can search for movies by title.
+Displays a list of movies with their titles, release year, and poster images.
+
+### 2.  View Movie Details ###
+Provides detailed information about a specific movie when selected.
+Displays information like the release date, genre, director, actors, plot summary, IMDb rating, and box office earnings.
+
+### 3. Add Movies to Favorites
+
+Users can add movies to their personal favorites list.
+Favorite movies are saved and easily accessible in the user’s profile.
+
+### 4. Remove Movies from Favorites
+
+Users can remove movies from their favorites list at any time.
+
+### 5. Responsive Design
+
+The app is fully responsive and adjusts to different screen sizes (desktop, tablet, mobile).
+
+### 6. User Authentication (Future Feature)
+
+ Integrated user authentication for a more personalized experience.
+Users will be able to log in and manage their own favorite movie list.
+
+### 7. Real-Time Movie Data
+Fetches movie data from the OMDB API in real-time, ensuring that users always get up-to-date information about movies.
+
+###  8. Backend API Integration
+
+Node.js backend to manage the API calls and handle movie data.
+Implements secure endpoints to handle user favorites using a JWT-based authentication system.
+
+### 9. Search Auto-Complete
+
+As users type the movie name in the search bar, suggestions pop up dynamically based on the OMDB API's data.
+### 10. Cross-Platform Compatibility
+
+Fully tested and optimized for cross-browser compatibility (Chrome, Firefox, Safari, Edge, etc.).
+
+
+## Future Improvements
+  
+  #### 1. Plans to implement dark mode for users who prefer a darker interface.
+
+#### 2. Implement pagination for search results to improve performance.
+#### 3. Enhance the UI with better user experience features.
+
+#### 3. Implementation of Movie Recomnedation System based on   user's prefrence and searches.
+
