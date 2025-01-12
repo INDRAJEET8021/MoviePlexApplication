@@ -27,13 +27,7 @@ const MovieGrid = ({ movies }) => {
     setShowAuthPopup(false);
   };
 
-  if (!movies.length) {
-    return (
-      <Typography variant="h6" sx={{ textAlign: "center", margin: "2rem" }}>
-        No movies found.
-      </Typography>
-    );
-  }
+
 
   return (
     <Grid container spacing={2} justifyContent="center">

@@ -19,7 +19,6 @@ import {
 import {
   Star as StarIcon,
   Movie as MovieIcon,
-  Person as PersonIcon,
   Info as InfoIcon,
   Language as LanguageIcon,
   LocalAtm as LocalAtmIcon,

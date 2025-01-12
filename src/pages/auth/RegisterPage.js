@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const RegisterPage = ({ onClose }) => {
@@ -8,7 +7,6 @@ const RegisterPage = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate();
 
   const modalRef = useRef(null);
   useEffect(() => {
@@ -31,7 +29,7 @@ const RegisterPage = ({ onClose }) => {
 
     try {
       // http://localhost:5000 to run on Loal Host
-      const response = await axios.post("https:movieplexapplication.onrender.com/register", {
+      const response = await axios.post("https://movieplexapplication.onrender.com/register", {
         username,
         email,
         password,

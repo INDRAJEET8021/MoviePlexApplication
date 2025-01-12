@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
+import React, { useState, useEffect } from "react";
 import MovieGrid from "../components/MovieGrid";
 import axios from "axios";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
@@ -13,8 +12,6 @@ import {
 } from "@mui/material";
 import Navbar from "./navbar/Navbar";
 import ClearIcon from "@mui/icons-material/Clear"; // Cross Icon for clearing search
-import FilterListIcon from '@mui/icons-material/FilterList';
-
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -22,18 +19,54 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // To store search query
 
-  const handleSearch = (query) => {
-    if (!query) return;
+  const [featuredMovies, setFeaturedMovies] = useState([]); // Predefined featured movies
+  const [noResults, setNoResults] = useState(false); // To track if no search results found
+
+  const apiKey = process.env.REACT_APP_OMDB_API_KEY;
+
+  const validFeaturedMovies = featuredMovies.filter(movie => movie.Poster !== "N/A");
+
+
+  useEffect(() => {
+   
+    fetchFeaturedMovies();
+  }, []);
+
+  const fetchFeaturedMovies = () => {
     setLoading(true);
     setError(null);
-    const apiKey = process.env.REACT_APP_OMDB_API_KEY;
+    
+    
+    axios
+      .get(`https://www.omdbapi.com/?s=latest&apikey=${apiKey}&type=movie&language=hi`)
+      .then((response) => {
+        setFeaturedMovies(response.data.Search || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Error fetching featured movies. Please try again later.");
+        setLoading(false);
+      });
+  };
 
+  const handleSearch = (query) => {
+    if (!query) {
+      setSearchQuery(query);
+      setMovies([]);
+      setNoResults(false);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setSearchQuery(query);
 
     axios
-    .get(`https://www.omdbapi.com/?s=${query}&apikey=${apiKey}`)
-
+      .get(`https://www.omdbapi.com/?s=${query}&apikey=${apiKey}`)
       .then((response) => {
-        setMovies(response.data.Search || []);
+        const searchResults = response.data.Search || [];
+        setMovies(searchResults);
+        setNoResults(searchResults.length === 0); // If no results, set noResults to true
         setLoading(false);
       })
       .catch((err) => {
@@ -46,6 +79,7 @@ const HomePage = () => {
   const clearSearch = () => {
     setSearchQuery("");
     setMovies([]); 
+    setNoResults(false); // Reset noResults state
     setError(null);
     setLoading(false);
   };
@@ -62,7 +96,6 @@ const HomePage = () => {
             zIndex: 10,
             backgroundColor: "#f8f9fa",
             backdropFilter: "blur(19px) saturate(180%)", // Apply the backdrop filter
-            // Light background for contrast
             paddingBottom: 4,
             marginBottom: 4,
             paddingTop: 0,
@@ -103,10 +136,7 @@ const HomePage = () => {
               variant="outlined"
               size="small"
               value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                handleSearch(e.target.value);
-              }}
+              onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search movies..."
               sx={{
                 width: "100%",
@@ -129,34 +159,48 @@ const HomePage = () => {
                         padding: "6px",
                       }}
                     >
-                      <ClearIcon
-                        sx={{ color: "#6B7280", fontSize: "1.5rem" }}
-                      />
+                      <ClearIcon sx={{ color: "#6B7280", fontSize: "1.5rem" }} />
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
-        
           </Box>
         </Box>
 
-        {/* Content Section */}
+        {/* Featured Movies Section */}
+       
+{/* Featured Movies Section */}
+{!searchQuery && !loading && !error && (
+  <Box sx={{ marginTop: 4 }}>
+    <Typography variant="h5" sx={{ fontWeight: 600, marginBottom: 2 }}>
+      Popular Movies
+    </Typography>
+    {validFeaturedMovies.length > 0 ? (
+      <MovieGrid movies={validFeaturedMovies} />
+    ) : (
+      <Typography variant="body1" sx={{ textAlign: "center" }}>
+        No Popular movies available. Please try another search.
+      </Typography>
+    )}
+  </Box>
+)}
+
+
+        {/* Search Results Section */}
         <Box sx={{ marginTop: 4 }}>
           {loading && <LoadingPlaceholder />}
           {error && (
-            <Box
-              sx={{
-                mt: 4,
-                color: "red",
-                textAlign: "center",
-                fontSize: "1.2rem",
-              }}
-            >
+            <Box sx={{ mt: 4, color: "red", textAlign: "center", fontSize: "1.2rem" }}>
               {error}
             </Box>
           )}
-          {!loading && !error && <MovieGrid movies={movies} />}
+          {noResults && !loading && !error && (
+            <Box sx={{ mt: 4, color: "red", textAlign: "center", fontSize: "1.2rem" }}>
+              Movies Not Found
+            </Box>
+          )}
+          {!loading && !error && !noResults && <MovieGrid movies={movies} />}
         </Box>
       </Container>
     </>
