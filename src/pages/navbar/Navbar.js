@@ -35,13 +35,13 @@ export default function Navbar() {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "#2A3E52",
+        backgroundColor: "#1E2A38", // Darker blue for contrast
         height: "70px",
         boxShadow: 3,
       }}
     >
       <Toolbar>
-        {/* Name & Logo */}
+        {/* Logo and App Name */}
         <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <a
             href="/"
@@ -59,7 +59,6 @@ export default function Navbar() {
                 height: "auto",
                 borderRadius: "50%",
                 marginRight: "12px",
-
                 padding: "6px",
                 boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
                 objectFit: "contain",
@@ -68,7 +67,7 @@ export default function Navbar() {
             />
             <Typography
               sx={{
-                fontWeight: "700", // Bold text
+                fontWeight: "700",
                 fontSize: "1.5rem",
                 color: "#ffffff",
                 textTransform: "uppercase",
@@ -138,7 +137,7 @@ export default function Navbar() {
                   marginRight: 2,
                   cursor: "pointer",
                 }}
-                size="larger"
+                size="large"
                 onClick={handleAvatarClick}
               >
                 {username.slice(0, 2).toUpperCase()}
@@ -186,15 +185,19 @@ export default function Navbar() {
         </Box>
 
         {/* Hamburger Menu for Mobile */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2, display: { sm: "none", md: "none" } }}
-          onClick={handleMenuClick}
-        >
-          <SegmentIcon fontSize="large" />
-        </IconButton>
+        <Box sx={{ display: { xs: "flex", sm: "none" }, alignItems: "center" }}>
+          {/* Avatar for Mobile on Left */}
+         
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={handleMenuClick}
+          >
+            <SegmentIcon fontSize="large" />
+          </IconButton>
+        </Box>
 
         {/* Hamburger Menu Items */}
         <Menu
@@ -205,10 +208,10 @@ export default function Navbar() {
           <MenuItem
             onClick={() => {
               handleMenuClose();
-              navigate("/movies");
+              navigate("/");
             }}
           >
-            Movies
+            Home
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -226,7 +229,21 @@ export default function Navbar() {
           >
             About
           </MenuItem>
+          
         </Menu>
+        {isLoggedIn && (
+            <Avatar
+              sx={{
+                bgcolor: deepPurple[500],
+                marginRight: 2,
+                cursor: "pointer",
+              }}
+              size="large"
+              onClick={handleAvatarClick}
+            >
+              {username.slice(0, 2).toUpperCase()}
+            </Avatar>
+          )}
       </Toolbar>
     </AppBar>
   );
