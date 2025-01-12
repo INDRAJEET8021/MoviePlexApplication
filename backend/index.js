@@ -42,7 +42,7 @@ db.connect((err) => {
   console.log("Connected to MySQL as id " + db.threadId);
 });
 
-const JWT_SECRET = "jkhibdsiub67657";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Register Route: Hashing the password before saving to the database
 app.post("/register", (req, res) => {
