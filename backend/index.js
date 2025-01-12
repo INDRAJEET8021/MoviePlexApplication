@@ -16,10 +16,6 @@ app.use(cors());
 
 // Set up MySQL connection
 const db = mysql.createConnection({
-  // host: "localhost", // Your database host (usually localhost)
-  // user: "details", // Your database username
-  // password: "12345", // Your database password
-  // database: "movie", // The name of your database
 
   // Setup for cloud data base
   host: process.env.HOST,       // Use the database host from .env
