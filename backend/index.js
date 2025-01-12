@@ -26,7 +26,7 @@ const db = mysql.createConnection({
   user: process.env.USER,             // Your database username
   password: process.env.DB_PASSWORD, // Use the database password from .env
   database: process.env.DATABASE,        // The name of your database
-  port: 14234,
+  port: process.env.DB_PORT,
   ssl: {
     ca: fs.readFileSync(process.env.ssl_cert_path)  // Assuming 'ssl_cert_path' points to the certificate file
   }
