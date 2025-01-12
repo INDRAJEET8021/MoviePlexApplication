@@ -28,7 +28,8 @@ const FavoritesPage = () => {
     if (isLoggedIn) {
       // Fetch the user's favorite movie IDs first
       axios
-        .get(`http://localhost:5000/getFavorites/${userId}`)
+      // http://localhost:5000 to run on Local Host
+        .get(`https://movieplexapplication.onrender.com/getFavorites/${userId}`)
         .then((response) => {
           setFavorites(response.data.favorites);
           setLoading(false);
@@ -72,7 +73,8 @@ const FavoritesPage = () => {
     if (isMovieInFavorites) {
       // Remove from favorites
       axios
-        .post("http://localhost:5000/removeFavorite", { userId, movieId })
+      // http://localhost:5000 to run on local Host
+        .post("https://movieplexapplication.onrender.com/removeFavorite", { userId, movieId })
         .then(() => {
           // Update favorites and movie details state
           setFavorites(favorites.filter((id) => id !== movieId));
@@ -84,7 +86,8 @@ const FavoritesPage = () => {
     } else {
       // Add to favorites
       axios
-        .post("http://localhost:5000/addFavorite", { userId, movieId })
+      //http://localhost:5000 to run on Local Host
+        .post("https://movieplexapplication.onrender.com/addFavorite", { userId, movieId })
         .then(() => {
           // Immediately update favorites
           setFavorites([...favorites, movieId]);

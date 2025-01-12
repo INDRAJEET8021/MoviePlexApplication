@@ -26,7 +26,7 @@ const MovieCard = ({ movie, onAuthRequired, favState }) => {
     if (isLoggedIn) {
       // Fetch user's favorite movies
       axios
-        .get(`http://localhost:5000/getFavorites/${userId}`)
+        .get(`https://movieplexapplication.onrender.com/getFavorites/${userId}`)
         .then((response) => {
           // Check if movie is in the user's favorites list
           setFavoritesList(response.data.favorites);
@@ -52,7 +52,7 @@ const MovieCard = ({ movie, onAuthRequired, favState }) => {
     if (isFavorite) {
       // Remove from favorites (API Call)
       axios
-        .post("http://localhost:5000/removeFavorite", {
+        .post("https://movieplexapplication.onrender.com/removeFavorite", {
           userId,
           movieId,
         })
@@ -64,7 +64,8 @@ const MovieCard = ({ movie, onAuthRequired, favState }) => {
     } else {
       // Add to favorites (API Call)
       axios
-        .post("http://localhost:5000/addFavorite", {
+      // http://localhost:5000
+        .post("https://movieplexapplication.onrender.com/addFavorite", {
           userId,
           movieId,
         })

@@ -30,7 +30,8 @@ const RegisterPage = ({ onClose }) => {
     setSuccess("");
 
     try {
-      const response = await axios.post("http://localhost:5000/register", {
+      // http://localhost:5000 to run on Loal Host
+      const response = await axios.post("https:movieplexapplication.onrender.com/register", {
         username,
         email,
         password,

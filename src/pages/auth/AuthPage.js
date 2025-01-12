@@ -32,7 +32,8 @@ const AuthPage = ({ onClose }) => {
     setSuccess(""); // Reset success message
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      // http://localhost:5000 to run on LocalHost
+      const response = await axios.post("https://movieplexapplication.onrender.com/login", {
         email,
         password,
       });

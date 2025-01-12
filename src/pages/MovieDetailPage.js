@@ -59,7 +59,8 @@ const MovieDetailPage = () => {
     if (isLoggedIn && movie) {
       // Check if this movie is in the user's favorites list
       axios
-        .get(`http://localhost:5000/getFavorites/${userId}`)
+      // http://localhost:5000 to run on local host
+        .get(`https://movieplexapplication.onrender.com/getFavorites/${userId}`)
         .then((response) => {
           const favoritesList = response.data.favorites;
           setIsFavorite(favoritesList.includes(movie.imdbID));
